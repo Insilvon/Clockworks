@@ -1,49 +1,61 @@
 package edu.COSC331;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketAddress;
+import java.io.IOException;
+import java.net.*;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class UDPClient331 {
-    DatagramSocket socket;
-    InetAddress addr;
-    HashSet<SocketAddress> group;
+    static DatagramSocket socket;
+    static InetAddress addr;
     String IP;
     boolean firstTime;
 
-    public void run() throws Exception {
-        firstTime = true;
-        System.out.println("Server Started");
-        int port = 4000;
+    public static void main(String[] args) throws IOException {
+        Scanner in = new Scanner(System.in);
+        System.out.println("What host to connect to?");
+        String hostName = in.nextLine();
+        System.out.println("What port to connect to? (4000)");
+        int port = in.nextInt();
+
+        addr = InetAddress.getByName(hostName);
         socket = new DatagramSocket(port);
 
-//        try {
-//            InetAddress addr = InetAddress.getLocalHost();
-//            String hostName = addr.getHostName();
-//            String hostAddress = addr.getHostAddress();
-//            System.out.println("Port: "+port);
-//            System.out.println("Host Name: "+hostName);
-//        }
-//        catch(Exception e) {
-//            System.out.println(e);
-//        }
+        Listener sender = new Listener(socket);
+        sender.start();
 
-        System.out.println("Client Activity");
-        while (true){
-            //get the message from clients
+
+        while(true){
+            Scanner read = new Scanner(System.in);
+            String line = read.nextLine();
             byte[] buffer = new byte[1024];
-            //create a new packet to get the data from
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            //receive the packet
-            socket.receive(packet);
+            buffer = line.getBytes();
+            DatagramPacket s = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostName), port);
 
-
-            group.add(packet.getSocketAddress()); //client socket address
-
-
-
-            }
+            socket.send(s);
         }
     }
+
+}
+class Listener extends Thread {
+    DatagramSocket socket;
+    public Listener(DatagramSocket socket2){
+        socket = socket2;
+    }
+    public void run() {
+        while(true){
+            byte[] buffer = new byte[1024];
+            DatagramPacket p = new DatagramPacket(buffer, buffer.length);
+
+            try {
+                socket.receive(p);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String line = new String(p.getData(), 0, p.getLength());
+            System.out.println("Received: "+line);
+        }
+
+    }
+}

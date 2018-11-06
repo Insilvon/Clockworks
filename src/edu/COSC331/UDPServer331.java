@@ -7,13 +7,13 @@ import java.net.SocketAddress;
 import java.util.HashSet;
 
 public class UDPServer331 {
-    DatagramSocket socket;
+    static DatagramSocket socket;
     InetAddress addr;
-    HashSet<SocketAddress> group;
+    static HashSet<SocketAddress> group;
     String IP;
-    boolean firstTime;
+    static boolean firstTime;
 
-    public void run() throws Exception {
+    public static void main(String[] args) throws Exception {
         firstTime = true;
         System.out.println("Server Started");
         int port = 4000;
