@@ -17,9 +17,14 @@ public class UDPClient331 {
         String hostName = in.nextLine();
         System.out.println("What port to connect to? (4000)");
         int port = in.nextInt();
+        System.out.println("Port to use?");
+        int localPort = in.nextInt();
+        System.out.println("Username?");
+        Scanner newer = new Scanner(System.in);
+        String username = newer.nextLine();
 
         addr = InetAddress.getByName(hostName);
-        socket = new DatagramSocket(port);
+        socket = new DatagramSocket(localPort);
 
         Listener sender = new Listener(socket);
         sender.start();
@@ -27,7 +32,8 @@ public class UDPClient331 {
 
         while(true){
             Scanner read = new Scanner(System.in);
-            String line = read.nextLine();
+            String line = username;
+            line+=": "+read.nextLine();
             byte[] buffer = new byte[1024];
             buffer = line.getBytes();
             DatagramPacket s = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostName), port);
@@ -54,7 +60,7 @@ class Listener extends Thread {
             }
 
             String line = new String(p.getData(), 0, p.getLength());
-            System.out.println("Received: "+line);
+            System.out.println(line);
         }
 
     }
