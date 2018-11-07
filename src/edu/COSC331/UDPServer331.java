@@ -42,7 +42,7 @@ public class UDPServer331 {
 
         public void run() {
             while (true) {
-                System.out.println(">");
+                System.out.print(">");
                 //get the message from clients
                 byte[] buffer = new byte[1024];
                 //create a new packet to get the data from
@@ -54,7 +54,9 @@ public class UDPServer331 {
                     e.printStackTrace();
                 }
                 group.add(packet.getSocketAddress()); //client socket address
-
+                String temp1 = new String(packet.getData(), 0, packet.getLength());
+                System.out.print(packet.getAddress()+": "+temp1);
+                System.out.println();
                 for (SocketAddress s : group) { //for every socket in the hashset...
 
                     if (firstTime == true) {
@@ -71,8 +73,7 @@ public class UDPServer331 {
                         firstTime = false;
                     }
 
-                    System.out.println("Client" + s + "Unknown word"); //client with address S said:
-                    byte[] response;
+//                    System.out.println("Client" + s + "Unknown word"); //client with address S said:
                     DatagramPacket p = new DatagramPacket(buffer, buffer.length, s);
                     try {
                         socket.send(p); //not sure
