@@ -11,27 +11,27 @@ public class Hangman {
         String person = "";
         switch(counter){
             case(1):
-                person  = " O \n";
+                person  = "_______\n |    |\n O    |\n      |\n      |\n______|";
                 System.out.println(person);
                 break;
             case(2):
-                person  = " O \n/";
+                person  = "_______\n |    |\n O    |\n/     |\n      |\n______|";
                 System.out.println(person);
                 break;
             case(3):
-                person  = " O \n/|";
+                person  = "_______\n |    |\n O    |\n/|\\   |\n      |\n______|";
                 System.out.println(person);
                 break;
             case(4):
-                person  = " O \n/|\\";
+                person  = "_______\n |    |\n O    |\n/|\\   |\n      |\n______|";
                 System.out.println(person);
                 break;
             case(5):
-                person  = " O \n/|\\\n/";
+                person  = "_______\n |    |\n O    |\n/|\\   |\n/     |\n______|";
                 System.out.println(person);
                 break;
             case(6):
-                person  = " O \n/|\\\n/ \\";
+                person  = "_______\n |    |\n O    |\n/|\\   |\n/ \\   |\n______|";
                 System.out.println(person);
                 break;
             default:
@@ -44,7 +44,9 @@ public class Hangman {
         File words = new File("../Dictionary.txt");
         try {
             String repeat = "y";
+
             do {
+                deadMan(6);
                 Scanner in = new Scanner(words);
 
                 Random rand = new Random();
