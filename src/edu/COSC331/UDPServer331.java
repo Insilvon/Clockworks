@@ -73,7 +73,6 @@ public class UDPServer331 {
                         firstTime = false;
                     }
 
-//                    System.out.println("Client" + s + "Unknown word"); //client with address S said:
                     DatagramPacket p = new DatagramPacket(buffer, buffer.length, s);
                     try {
                         socket.send(p); //not sure

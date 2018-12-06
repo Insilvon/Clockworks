@@ -18,7 +18,7 @@ public class Project4 {
 	 * Input File COSC241_P4_Input.txt This project fulfills extra credit requirements!
 	 */
 	public static void test() throws IOException{
-		File input = new File("../COSC241_P4_Input.txt");
+		File input = new File("...../COSC241_P4_Input.txt");
 		Scanner read = new Scanner(input);
 		File output = new File("../COSC241_P4_Output_crcrowe0.txt");
 		BufferedWriter reader = new BufferedWriter(new FileWriter(output));

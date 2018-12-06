@@ -22,7 +22,7 @@ public class UDPClient331 {
         System.out.println("Username?");
         Scanner newer = new Scanner(System.in);
         String username = newer.nextLine();
-    System.out.println(InetAddress.getLocalHost());
+        System.out.println(InetAddress.getLocalHost());
         addr = InetAddress.getByName(hostName);
         socket = new DatagramSocket(localPort);
 
